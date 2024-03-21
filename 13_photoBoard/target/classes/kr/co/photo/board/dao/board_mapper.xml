@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd"
+>
+<!-- 이 xml 은 어떤 interface 를 참조해서 사용해야 하는가? -->
+<mapper namespace="kr.co.photo.board.dao.BoardDAO">
+
+	<select id="list" resultType="kr.co.photo.board.dto.BoardDTO">
+		SELECT * FROM bbs
+	</select>
+	
+	<insert id="write" parameterType="map">
+		INSERT INTO bbs (subject,user_Name,content)
+			VALUES(#{subject},#{user_name},#{content})
+	</insert>
+	
+	<select id="detail" resultType="kr.co.photo.board.dto.BoardDTO">
+		SELECT * FROM bbs WHERE idx = #{param1}
+	</select>
+	
+	<update id="upHit">
+		UPDATE bbs SET bHit = bHit + 1 WHERE idx = #{param1}
+	</update>
+	
+	<delete id="del">
+		DELETE FROM bbs WHERE idx = #{param1}
+	</delete>
+	
+	<update id="update" parameterType="map">
+		UPDATE bbs SET
+			user_name = #{user_name}
+			,subject = #{subject}
+			,content = #{content}
+		WHERE idx = #{idx}
+	</update>
+	
+</mapper>
